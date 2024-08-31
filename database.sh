@@ -1,13 +1,18 @@
 #!/bin/bash
 USERID=$(id -u)
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
+N="\e[0m"
+
 ROOT()
 {
     if [ $USERID -ne 0 ]
     then
-        echo "YOU ARE NOT IN ROOT PREVILIGES PLEASE RUN WITH SUDO"
+        echo -e "$R YOU ARE NOT IN ROOT PREVILIGES PLEASE RUN WITH SUDO $N"
         exit 1
     else
-        echo "SERVER STARTED FOR EXECUTING SERVICES"
+        echo -e "$G SERVER STARTED FOR EXECUTING SERVICES $N"
     fi
 }
 VALIDATE() {
@@ -29,13 +34,13 @@ then
     dnf install mysql-server -y
       if [ $? -ne 0 ]
       then
-        echo "MYSQL SERVER NOT INSTALLED PROPERLLY RETRY"
+            echo -e "$R MYSQL SERVER NOT INSTALLED PROPERLLY RETRY $N"
         exit 1
        else
-          echo "MYSQL_SERVER INSTALLED SUCCESSFULLY"
+            echo -e "$G SQL_SERVER INSTALLED SUCCESSFULLY $N"
       fi
 else
-    echo "MYSQL_SERVER PACKEGES ARE ALREADY AVAILABLE";
+    echo -e "$Y MYSQL_SERVER PACKEGES ARE ALREADY AVAILABLE $N";
 fi
 
 systemctl enable mysqld
