@@ -33,7 +33,7 @@ VALIDATE() {
 
 ROOT
 
-dnf list installed mysql-server;
+dnf list installed mysql-server | &>>$LOG_FILE
 if [ $? -ne 0 ]
 then
     echo "MYSQL SERVER NOT INSTALLED..GOING TO INSTALLING" | tee -a $LOG_FILE
@@ -46,7 +46,7 @@ then
             echo -e "$G SQL_SERVER INSTALLED SUCCESSFULLY $N" | tee -a $LOG_FILE
       fi
 else
-    echo -e "$Y MYSQL_SERVER PACKEGES ARE ALREADY AVAILABLE $N"; | tee -a $LOG_FILE
+    echo -e "$Y MYSQL_SERVER PACKEGES ARE ALREADY AVAILABLE $N" | tee -a $LOG_FILE
 fi
 
 systemctl enable mysqld
