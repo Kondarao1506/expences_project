@@ -2,7 +2,7 @@
 USERID=$(id -u)
 ROOT()
 {
-    if [$USERID -ne 0 ]
+    if [ $USERID -ne 0 ]
     then
         echo "YOU ARE NOT IN ROOT PREVILIGES PLEASE RUN WITH SUDO"
         exit 1
