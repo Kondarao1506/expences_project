@@ -38,7 +38,7 @@ VALIDATE $? "DISABLED NODEJS"
 dnf module enable nodejs:20 -y &>>$LOG_FILE
 VALIDATE $? "ENABLED NODEJS :20"
 
-dnf lists installed nodejs -y &>>$LOG_FILE
+dnf list installed nodejs -y &>>$LOG_FILE
 if [ $? -ne 0 ]
 then
     echo -e "$G NODEJS GOING TO INSTALLING $N" | tee -a $LOG_FILE
@@ -56,14 +56,38 @@ curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expen
 
 cd /app
 
-unzip /tmp/backend.zip
+unzip /tmp/backend.zip &>>$LOG_FILE
 VALIDATE $? "BACKEND FILE UZIPPED"
 
 npm install
 VALIDATE $? "NPM INSTALLED"
 
+cp /home/ec2-user/expences_project/backend.service /etc/systemd/system/backend.service
+VALIDATE $? "BACKEND SERVICE COPIED"
 
+dnf list installed mysql -y &>>$LOG_FILE
+if [ $? -ne 0 ]
+then    
+    echo -e "$G MYSQL GOING TO INSTALLING $N" | tee -a $LOG_FILE
+    dnf install mysql -y &>>$LOG_FILE
+    VALIDATE $? "MYSQLSERVER INSTALLED"
+else
+    echo -e "$G MYSQLSERVER ALREADY INSTALLED $N -- $Y SKIPPING $N" | tee -a $LOG_FILE
+fi
 
+mysql -h sql.kondarao.online -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$LOG_FILE
+VALIDATE $? "schema setting in database"
 
+systemctl restart backend
+VALIDATE $? "RESTARTING BACKEND"
+
+systemctl daemon-reload
+VALIDATE $? "DEMON RELODING"
+
+systemctl start backend
+VALIDATE $? "BACKEND STARTED"
+
+systemctl enable backend
+VALIDATE $? "BACKEND ENABLEING"
 
 
