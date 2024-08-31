@@ -43,5 +43,5 @@ if [ $? -ne 0]
 then 
     echo "mysql server going to enable "
     systemctl start mysqldf    
-    VALIDATE() $? "MYSQL_SERVER"
+    VALIDATE() $@ "MYSQL_SERVER"
 fi
