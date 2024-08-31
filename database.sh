@@ -8,9 +8,8 @@
 # mkdir -p $FOLDER_PATH
 
 FILEPATH="/var/log/mysql_logs"
-#SCRIPT=$(echo $0 | cut -d "." -1 f)
 SCRIPT=$(echo $0 | cut -d "." -f1)
-TIME_STAMP=$(date +%D)
+TIME_STAMP=$(date +%Y-%m-%d-%H-%M-%S)
 LOG_FILE=$FILEPATH/$SCRIPT-$TIME_STAMP.log
 mkdir -p $FILEPATH
 
