@@ -87,11 +87,13 @@ fi
 mysql -h sql.kondarao.online -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$LOG_FILE
 VALIDATE $? "schema setting in database"
 
+systemctl daemon-reload
+VALIDATE $? "DEMON RELODING"
+
+
 systemctl restart backend
 VALIDATE $? "RESTARTING BACKEND"
 
-systemctl daemon-reload
-VALIDATE $? "DEMON RELODING"
 
 systemctl start backend
 VALIDATE $? "BACKEND STARTED"
