@@ -1,4 +1,12 @@
 #!/bin/bash
+
+#GETTING LOG PATH
+# FOLDER_PATH="/var/log/my_sql_logs"
+# SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
+# TIME_STAMP=$(date +%Y-%m-%d-%H-%M-%S)
+# FILE_LOG=$FOLDER_PATH/$SCRIPT_NAME-$TIME_STAMP.log
+# mkdir -p $FOLDER_PATH
+
 FILEPATH="/var/log/mysql_logs"
 #SCRIPT=$(echo $0 | cut -d "." -1 f)
 SCRIPT=$(echo $0 | cut -d "." -f1)
