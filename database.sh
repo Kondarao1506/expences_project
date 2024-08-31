@@ -41,7 +41,7 @@ VALIDATE() {
 
 ROOT
 
-dnf list installed mysql-server #| &>>$LOG_FILE
+dnf list installed mysql-server | &>>$LOG_FILE
 if [ $? -ne 0 ]
 then
     echo "MYSQL SERVER NOT INSTALLED..GOING TO INSTALLING" | tee -a $LOG_FILE
