@@ -43,13 +43,18 @@ else
 fi
 systemctl enable nginx
 VALIDATE $? "NGINX ENABLED"
+
 systemctl start nginx
 VALIDATE $? "NGINX STARTED"
+
 rm -rf /usr/share/nginx/html/*
 VALIDATE $? "DUMMY FILES REMOVED IN THE PATH "
+
 curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip &>>$LOG_FILE
 cd /usr/share/nginx/html
+
 unzip /tmp/frontend.zip &>>$LOG_FILE
+
 cp /home/ec2-user/expences_project/frontend.conf /etc/nginx/default.d/expense.conf
 VALIDATE $? "configuration file copied to expence.conf"
 
