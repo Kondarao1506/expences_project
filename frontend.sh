@@ -32,7 +32,7 @@ VALIDATE() {
 
 ROOT
 
-dnf list installed nginx -y 
+dnf list installed nginx -y &>>$LOG_FILE
 if [ $? -ne 0 ]
 then
     echo -e "$G NGINX IS GOING TO INSTALL $N" | tee -a $LOG_FILE
@@ -50,10 +50,12 @@ VALIDATE $? "DUMMY FILES REMOVED IN THE PATH "
 curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip &>>$LOG_FILE
 cd /usr/share/nginx/html
 unzip /tmp/frontend.zip &>>$LOG_FILE
-cp /home/ec2-user/expences_project /etc/nginx/default.d/expense.conf
+cp /home/ec2-user/expences_project/frontend.conf /etc/nginx/default.d/expense.conf
 VALIDATE $? "configuration file copied to expence.conf"
 
 systemctl restart nginx
 VALIDATE $? "NGENIX RESTARTED"
+
+echo -e "$Y YOU PROJECT IS READY TO EXECUTE $N"
 
 
