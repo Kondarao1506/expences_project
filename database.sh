@@ -62,3 +62,14 @@ VALIDATE $? "MYSQL_SERVER_ENABLED"
 
 systemctl start mysqld
 VALIDATE $? "MYSQL_SERVER_STARTED"
+
+#set password to mysql
+mysql -h sql.kondarao.online -u root -pExpenseApp@1 -e 'showdatabases;'
+if [$? -ne 0]
+then
+    echo -e "$G MYSQL_SERVER PASSWORD GOING TO SETTING $N"
+    mysql -h sql.kondarao.online -u root -pExpenseApp@1
+    VALIDATE $? "SQL SERVER PASSWORD SETTING"
+else
+    echo -e "$G MYSQL SERVER PASSWORD ALREADY SET $N--$Y SKIPPING $N"
+fi
