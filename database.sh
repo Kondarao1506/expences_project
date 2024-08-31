@@ -1,9 +1,9 @@
 #!/bin/bash
 FILEPATH="/var/log/mysql_logs"
-SCRIPT=$(echo $0 | cut -d "." -1f)
+SCRIPT=$(echo $0 | cut -d "." -1 f)
 TIME_STAMP=$(date +%D)
 LOG_FILE=$SCRIPT$TIME_STAMP$FILEPATH.log
-mkdir -p mysql_logs
+mkdir -p $FILEPATH
 
 USERID=$(id -u)
 R="\e[31m"
