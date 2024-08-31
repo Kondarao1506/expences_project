@@ -5,6 +5,7 @@ ROOT()
     if [$USERID -ne 0 ]
     then
         echo "YOU ARE NOT IN ROOT PREVILIGES PLEASE RUN WITH SUDO"
+        exit 1
     else
         echo "SERVER STARTED FOR EXECUTING SERVICES"
     fi
@@ -18,7 +19,9 @@ VALIDATE() {
         echo "$2 is : SUCCESS"
     fi
 }
+
 ROOT
+
 dnf list installed mysql-server;
 if [ $? -ne 0 ]
 then
