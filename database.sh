@@ -39,7 +39,7 @@ else
 fi
 
 systemctl enable mysqld
-if [ $? -ne 0]
+if [ $? -ne 0 ]
 then 
     echo "mysql server going to enable "
     systemctl start mysqldf    
