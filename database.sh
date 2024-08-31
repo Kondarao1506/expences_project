@@ -1,5 +1,14 @@
 #!/bin/bash
-
+USERID=$(id -u)
+ROOT()
+{
+    if [$USERID -ne 0 ]
+    then
+        echo "YOU ARE NOT IN ROOT PREVILIGES PLEASE RUN WITH SUDO"
+    else
+        echo "SERVER STARTED FOR EXECUTING SERVICES"
+    fi
+}
 VALIDATE() {
     if [ $1 -ne 0 ]
     then 
@@ -9,7 +18,7 @@ VALIDATE() {
         echo "$2 is : SUCCESS"
     fi
 }
-
+ROOT
 dnf list installed mysql-server;
 if [ $? -ne 0 ]
 then
