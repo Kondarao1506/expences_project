@@ -68,7 +68,7 @@ rm -rf /app/* # remove the existing code
 unzip /tmp/backend.zip &>>$LOG_FILE
 VALIDATE $? "BACKEND FILE UZIPPED"
 
-npm install
+npm install &>>$LOG_FILE
 VALIDATE $? "NPM INSTALLED"
 
 cp /home/ec2-user/expences_project/backend.service /etc/systemd/system/backend.service
