@@ -68,7 +68,7 @@ mysql -h sql.kondarao.online -u root -pExpenseApp@1 -e 'show databases;' &>>$LOG
 if [ $? -ne 0 ]
 then
     echo -e "$G MYSQL_SERVER PASSWORD GOING TO SETTING $N"
-    mysql -h sql.kondarao.online -u root -pExpenseApp@1 &>>$LOG_FILE
+    mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOG_FILE
     VALIDATE $? "SQL SERVER PASSWORD SETTING"
 else
     echo -e "$G MYSQL SERVER PASSWORD ALREADY SET $N--$Y SKIPPING $N"
