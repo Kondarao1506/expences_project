@@ -48,14 +48,23 @@ else
     echo -e "$G NODEJS ALREADY INSTALLED $N -- $Y SKIPPING $N" | tee -a $LOG_FILE
 fi
 
-useradd expense
+#useradd expense
+id expense &>>$LOG_FILE
+if [ $? -ne 0 ]
+then
+    echo -e "expense user not exists... $G Creating $N"
+    useradd expense &>>$LOG_FILE
+    VALIDATE $? "Creating expense user"
+else
+    echo -e "expense user already exists...$Y SKIPPING $N"
+fi
 
 mkdir -p /app
 
 curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip
 
 cd /app
-
+rm -rf /app/* # remove the existing code
 unzip /tmp/backend.zip &>>$LOG_FILE
 VALIDATE $? "BACKEND FILE UZIPPED"
 
